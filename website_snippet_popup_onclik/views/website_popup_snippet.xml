@@ -2,7 +2,9 @@
     <record id="website_popup_trigger_assets" model="ir.asset">
         <field name="name">Custom Popup JS</field>
         <field name="bundle">web.assets_frontend</field>
-        <field name="path">website_popup_trigger/static/src/js/popup_trigger.js</field>
+        <field
+            name="path"
+        >website_snippet_popup_onclik/static/src/js/popup_trigger.js</field>
     </record>
     <template id="extend_s_popup_options" inherit_id="website.s_popup_options">
         <xpath
