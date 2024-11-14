@@ -12,7 +12,7 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "website_popup_trigger/static/src/js/popup_trigger.js",
+            "website_snippet_popup_onclik/static/src/js/popup_trigger.js",
         ],
     },
     "installable": True,
