@@ -1,4 +1,4 @@
-odoo.define("website.s_popup_options", function (require) {
+odoo.define("website_snippet_popup_onclik.s_popup_options", function (require) {
     "use strict";
 
     const options = require("web_editor.snippets.options");
