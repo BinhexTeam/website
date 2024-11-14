@@ -1,0 +1,27 @@
+<odoo>
+    <record id="website_popup_trigger_assets" model="ir.asset">
+        <field name="name">Custom Popup JS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">website_popup_trigger/static/src/js/popup_trigger.js</field>
+    </record>
+    <template id="extend_s_popup_options" inherit_id="website.s_popup_options">
+        <xpath
+            expr="//t[@t-set='extra_popup_options']/we-select[@data-attribute-name='display']"
+            position="inside"
+        >
+            <we-button
+                data-select-data-attribute="onClick"
+                data-name="onclick_opt"
+            >On Click (via link)</we-button>
+        </xpath>
+        <xpath expr="//t[@t-set='extra_popup_options']" position="after">
+            <div class="s_popup_buttons mt-2">
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-popup-action="triggerOnClick"
+                >Trigger On Click Popup</button>
+            </div>
+        </xpath>
+    </template>
+</odoo>
