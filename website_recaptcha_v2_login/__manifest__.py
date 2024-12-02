@@ -1,5 +1,5 @@
 {
-    "name": "BINHEX: Website reCAPTCHA v2",
+    "name": "Website reCAPTCHA v2 login",
     "version": "16.0.1.0.0",
     "category": "Website",
     "depends": ["web", "website_recaptcha_v2"],

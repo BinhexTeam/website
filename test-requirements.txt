@@ -1,0 +1,1 @@
+odoo-addon-website_recaptcha_v2 @ git+https://github.com/OCA/website.git@refs/pull/1032/head#subdirectory=setup/website_recaptcha_v2
