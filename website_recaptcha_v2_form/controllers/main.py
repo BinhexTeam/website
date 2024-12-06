@@ -13,7 +13,7 @@ SIGN_UP_REQUEST_PARAMS.add("g-recaptcha-response")
 
 
 class BinhexHome(Home):
-    def verify_recaptcha_v2(self, args=None, kw=None, template="", values=None):
+    def verify_recaptcha_v2(self, kw=None, template="", values=None):
         Website = request.env["website"].sudo()
         try:
             request.env["ir.http"]._auth_method_public()
@@ -67,7 +67,7 @@ class BinhexAuthSignupHome(AuthSignupHome):
         qcontext = self.get_auth_signup_qcontext()
         if request.httprequest.method == "POST":
             valid = self.verify_recaptcha_v2(
-                kw=kw, template="auth_signup.reset_password", values=qcontext, args=args
+                kw=kw, template="auth_signup.reset_password", values=qcontext
             )
             if not isinstance(valid, bool):
                 return valid
