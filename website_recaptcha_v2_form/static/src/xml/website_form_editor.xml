@@ -3,6 +3,7 @@
 
     <t t-name="website_recaptcha_v2_form.recaptcha_v2">
         <div class="col-12 s_website_form_recaptcha_v2" data-name="Recaptcha v2 Legal">
+            <input type="hidden" name="recaptcha_enabled" value="True" />
             <script>
                 window.callback_success_recaptcha = function (token) {
                     console.info('success_token');

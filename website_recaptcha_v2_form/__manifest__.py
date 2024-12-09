@@ -21,7 +21,6 @@
         "website.assets_wysiwyg": [
             "website_recaptcha_v2_form/static/src/xml/website_form_editor.xml",
             "website_recaptcha_v2_form/static/src/snippets/s_website_form/options.js",
-            "website_recaptcha_v2_form/static/src/snippets/s_website_form/000.js",
         ],
         "web.assets_frontend": [
             "website_recaptcha_v2_form/static/src/css/recaptcha.css",
