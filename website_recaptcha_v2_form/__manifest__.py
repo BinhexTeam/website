@@ -9,7 +9,9 @@
     """,
     "license": "AGPL-3",
     "website": "https://github.com/OCA/website",
-    "summary": "Module that allows you to use recaptcha v2 for login, password reset, signup and snippet form on the website.",
+    "summary": """ Module that allows you to use recaptcha v2 for login, password reset,
+                   signup and snippet form on the website.
+    """,
     "data": [
         "views/webclient_templates.xml",
         "views/auth_signup_login_templates.xml",

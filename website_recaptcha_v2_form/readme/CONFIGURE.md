@@ -14,3 +14,6 @@
 #. Fill in the generated **Site Key** and **Secret key**.
 
 ![reCAPTCHA v2 keys](../static/src/img/readme/img_2.png)
+
+#. Enable recaptcha in form website.
+![reCAPTCHA v2 enable website](../static/src/img/readme/img_3.png)

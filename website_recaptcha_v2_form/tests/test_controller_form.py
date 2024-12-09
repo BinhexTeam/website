@@ -4,8 +4,6 @@ from odoo import http
 from odoo.tests import new_test_user
 from odoo.tests.common import HttpCase
 
-imp_requests = "odoo.addons.website_recaptcha_v2.models.website.requests"
-
 
 class TestControllerForm(HttpCase):
     def test_url_open(self, data=None, url="/website/form/res.partner"):
