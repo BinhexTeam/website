@@ -6,7 +6,7 @@ from odoo import http
 
 from odoo.addons.website.controllers.form import WebsiteForm
 
-from .main import BinhexHome
+from .main import RecaptchaHome
 
 
 class WebsiteRecaptchaForm(WebsiteForm):
@@ -20,7 +20,7 @@ class WebsiteRecaptchaForm(WebsiteForm):
     )
     def website_form(self, model_name, **kwargs):
         if kwargs.get("recaptcha_enabled", False):
-            valid = BinhexHome.verify_recaptcha_v2(self, values=kwargs)
+            valid = RecaptchaHome.verify_recaptcha_v2(self, values=kwargs)
             if not isinstance(valid, bool):
                 return json.dumps(
                     {
