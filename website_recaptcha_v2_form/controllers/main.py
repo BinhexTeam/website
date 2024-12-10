@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 SIGN_UP_REQUEST_PARAMS.add("g-recaptcha-response")
 
 
-class BinhexHome(Home):
+class RecaptchaHome(Home):
     def verify_recaptcha_v2(self, kw=None, template="", values=None):
         Website = request.env["website"].sudo()
         try:
