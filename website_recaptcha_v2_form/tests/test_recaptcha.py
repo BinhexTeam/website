@@ -42,6 +42,8 @@ class TestModule(common.TransactionCase):
             "test-site",
             msg="The website key for recaptcha is empty.",
         )
+        recaptcha_v2_site_key = self.website.get_recaptcha_v2_site_key()
+        self.assertNotEqual(recaptcha_v2_site_key, "")
 
     def test_valid_recaptcha_v2_recaptcha_v2_secret_key(self):
         recaptcha_v2_secret_key = self.website.recaptcha_v2_secret_key

@@ -59,7 +59,7 @@ class RecaptchaHome(Home):
         return super().web_login(redirect, **kw)
 
 
-class BinhexAuthSignupHome(AuthSignupHome):
+class RecaptchaAuthSignupHome(AuthSignupHome):
     @http.route(
         "/web/reset_password", type="http", auth="public", website=True, sitemap=False
     )
@@ -78,7 +78,7 @@ class BinhexAuthSignupHome(AuthSignupHome):
         qcontext = self.get_auth_signup_qcontext()
         if request.httprequest.method == "POST":
             valid = self.verify_recaptcha_v2(
-                kw=kw, template="auth_signup.signup", values=qcontext, args=args
+                template="auth_signup.signup", values=qcontext
             )
             if not isinstance(valid, bool):
                 return valid
