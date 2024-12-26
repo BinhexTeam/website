@@ -36,6 +36,60 @@ class TestModule(common.TransactionCase):
                 % cls.website.recaptcha_v2_site_key,
             }
         )
+        cls.ResConfigSettings = cls.env["res.config.settings"]
+
+    def test_onchange_recaptcha_v2_site_key_no_site_key(self):
+        settings = self.ResConfigSettings.create({})
+        with mock.patch("odoo.models.TransientModel.env") as mocked_env:
+            views_recaptcha_mock = mock.Mock()
+            mocked_return = mocked_env.__getitem__.return_value.sudo.return_value
+            mocked_return.search.return_value = views_recaptcha_mock
+            views_recaptcha_mock.arch_db = ""
+            settings.onchange_recaptcha_v2_site_key()
+            mocked_return.search.assert_called_once_with(
+                [
+                    ("arch_db", "ilike", 'class="g-recaptcha"'),
+                    ("website_id", "!=", False),
+                ]
+            )
+            views_recaptcha_mock.sudo.return_value.write.assert_not_called()
+
+    def test_onchange_recaptcha_v2_site_key_with_site_key(self):
+        settings = self.ResConfigSettings.create(
+            {"recaptcha_v2_site_key": "new_site_key"}
+        )
+        with mock.patch("odoo.models.TransientModel.env") as mocked_env:
+            views_recaptcha_mock = mock.Mock()
+            mocked_return = mocked_env.__getitem__.return_value.sudo.return_value
+            mocked_return.search.return_value = views_recaptcha_mock
+            views_recaptcha_mock.arch_db = (
+                '<div class="g-recaptcha" data-sitekey="old_site_key"></div>'
+            )
+            settings.onchange_recaptcha_v2_site_key()
+            mocked_return.search.assert_called_once_with(
+                [
+                    ("arch_db", "ilike", 'class="g-recaptcha"'),
+                    ("website_id", "!=", False),
+                ]
+            )
+
+    def test_onchange_recaptcha_v2_site_key_with_no_recaptcha_class(self):
+        settings = self.ResConfigSettings.create(
+            {"recaptcha_v2_site_key": "new_site_key"}
+        )
+        with mock.patch("odoo.models.TransientModel.env") as mocked_env:
+            views_recaptcha_mock = mock.Mock()
+            mocked_return = mocked_env.__getitem__.return_value.sudo.return_value
+            mocked_return.search.return_value = views_recaptcha_mock
+            views_recaptcha_mock.arch_db = '<div class="some-other-class"></div>'
+            settings.onchange_recaptcha_v2_site_key()
+            mocked_return.search.assert_called_once_with(
+                [
+                    ("arch_db", "ilike", 'class="g-recaptcha"'),
+                    ("website_id", "!=", False),
+                ]
+            )
+            views_recaptcha_mock.sudo.return_value.write.assert_not_called()
 
     @mock.patch(imp_requests)
     def test_captcha_valid(self, requests_mock):
