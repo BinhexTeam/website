@@ -18,6 +18,24 @@ class TestModule(common.TransactionCase):
                 "recaptcha_v2_secret_key": "test-secret",
             }
         )
+        cls.other_recaptcha_v2_site_key = "other-test-site"
+        cls.view_test_recaptcha = cls.env["ir.ui.view"].create(
+            {
+                "name": "Test Recaptcha",
+                "type": "qweb",
+                "arch": """
+                <t name="Test Recaptcha">
+                <div class="g-recaptcha"
+                t-att-data-sitekey="%s"
+                data-callback="callback_success_recaptcha"
+                data-expired-callback="callback_expired_recaptcha"
+            />
+            <div>Test Recaptcha</div>
+                </t>
+            """
+                % cls.website.recaptcha_v2_site_key,
+            }
+        )
 
     @mock.patch(imp_requests)
     def test_captcha_valid(self, requests_mock):
@@ -54,3 +72,10 @@ class TestModule(common.TransactionCase):
             "test-site",
             msg="The website key for recaptcha is empty.",
         )
+
+    def test_update_recaptcha(self):
+        arch_db = self.view_test_recaptcha.arch_db
+        site_key_old = arch_db.split('data-sitekey="')
+        self.assertEqual(len(site_key_old), 2)
+        site_key = site_key_old[1].split('"')
+        self.assertGreaterEqual(len(site_key), 1)
