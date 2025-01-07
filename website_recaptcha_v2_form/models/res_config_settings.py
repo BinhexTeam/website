@@ -16,15 +16,16 @@ class ResConfigSettings(models.TransientModel):
                 ]
             )
         )
-        site_key_old = views_recaptcha.arch_db.split('data-sitekey="')
-        if len(site_key_old) > 1:
-            site_key_old = site_key_old[1].split('"')[0]
-            if site_key_old:
-                div_start = '<div class="g-recaptcha" data-sitekey='
-                div_end = """data-callback='callback_success_recaptcha'
-                            data-expired-callback='callback_expired_recaptcha'"""
-                updated_arch = views_recaptcha.arch_db.replace(
-                    f'{div_start}"{site_key_old}" {div_end}/>',
-                    f'{div_start} "{self.recaptcha_v2_site_key}" {div_end}/>',
-                )
-                views_recaptcha.sudo().write({"arch": updated_arch})
+        if views_recaptcha:
+            site_key_old = views_recaptcha.arch_db.split('data-sitekey="')
+            if len(site_key_old) > 1:
+                site_key_old = site_key_old[1].split('"')[0]
+                if site_key_old:
+                    div_start = '<div class="g-recaptcha" data-sitekey='
+                    div_end = """data-callback='callback_success_recaptcha'
+                                data-expired-callback='callback_expired_recaptcha'"""
+                    updated_arch = views_recaptcha.arch_db.replace(
+                        f'{div_start}"{site_key_old}" {div_end}/>',
+                        f'{div_start} "{self.recaptcha_v2_site_key}" {div_end}/>',
+                    )
+                    views_recaptcha.sudo().write({"arch": updated_arch})
